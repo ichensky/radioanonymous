@@ -1,0 +1,697 @@
+﻿<common:LayoutAwarePage x:Class="RadioAnonymous.MainPage"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:common="using:RadioAnonymous.Common"
+                        xmlns:controlHelpers="using:RadioAnonymous.Helpers.ControlHelpers"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:local="using:RadioAnonymous"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        x:Name="pageRoot"
+                        DataContext="{Binding DefaultViewModel,
+                                              RelativeSource={RelativeSource Self}}"
+                        mc:Ignorable="d">
+    <Page.Resources>
+        <DataTemplate x:Key="GridViewGalleryTemplate">
+            <Grid Name="GridGalleryImageItem"
+                  Width="150"
+                  Height="150"
+                  Margin="20,20,20,20"
+                  HorizontalAlignment="Left"
+                  Tapped="GridGalleryImageItem_Tapped">
+                <Border BorderBrush="#aaaaaa" BorderThickness="1">
+                    <Image Name="ImageGalleryImage"
+                           Margin="5"
+                           Source="{Binding Path=ImagePath}"
+                           Stretch="Fill" />
+                </Border>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="AnswerTemplate">
+            <Grid Name="GridPost"
+                  HorizontalAlignment="Left"
+                  Tapped="GridPost_Tapped">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Foreground="#996793" Text="Объявление" />
+                <TextBlock Grid.Column="1"
+                           Foreground="#333333"
+                           Text=" в"
+                           TextWrapping="Wrap" />
+                <TextBlock Grid.Column="2"
+                           Foreground="#aaa"
+                           Text="{Binding Path=TimestampLable}"
+                           TextWrapping="Wrap" />
+                <TextBlock Grid.Column="3"
+                           Foreground="#333333"
+                           Text=" - "
+                           TextWrapping="Wrap" />
+                <TextBlock Grid.Column="4"
+                           Foreground="#333333"
+                           Text="{Binding Path=AnswerLable}"
+                           TextWrapping="Wrap" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="QuestionAnswerTemplate">
+            <Grid HorizontalAlignment="Left" Tapped="GridPost_Tapped">
+                <StackPanel>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Foreground="#996793" Text="{Binding Path=UserId}" />
+                        <TextBlock Grid.Column="1"
+                                   Foreground="#333333"
+                                   Text=" в"
+                                   TextWrapping="Wrap" />
+                        <TextBlock Grid.Column="2"
+                                   Foreground="#aaa"
+                                   Text="{Binding Path=TimestampLable}"
+                                   TextWrapping="Wrap" />
+                        <TextBlock Grid.Column="3"
+                                   Foreground="#333333"
+                                   Text=" - "
+                                   TextWrapping="Wrap" />
+                        <TextBlock Grid.Column="4"
+                                   Foreground="#008cf0"
+                                   Text="{Binding Path=Question}"
+                                   TextWrapping="Wrap" />
+                    </Grid>
+                    <TextBlock Foreground="#333333"
+                               Text="{Binding Path=Answer}"
+                               TextWrapping="Wrap" />
+
+                </StackPanel>
+
+
+
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="ShedTemplate">
+            <Grid HorizontalAlignment="Left">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                           Foreground="#aaaaaa"
+                           Text="{Binding Path=TimeStamp}"
+                           TextWrapping="Wrap" />
+                <TextBlock Grid.Column="1"
+                           Foreground="#cc0000"
+                           Text="{Binding Path=DjName}"
+                           TextWrapping="Wrap" />
+                <TextBlock Grid.Column="2"
+                           Foreground="#333333"
+                           Text="{Binding Path=EfirName}"
+                           TextWrapping="Wrap" />
+            </Grid>
+        </DataTemplate>
+        <controlHelpers:AnswerTemplateSelector x:Key="AnswerTemplateSelector"
+                                               Answer="{StaticResource AnswerTemplate}"
+                                               QuestionAnswer="{StaticResource QuestionAnswerTemplate}" />
+        <!--  TODO: Delete this line if the key AppName is declared in App.xaml  -->
+        <x:String x:Key="AppName">My Application</x:String>
+        <Storyboard x:Name="StoryboardSplashChanged">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ImageSpash" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ImageSpash" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="StoryboardSplashUploded">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ImageSpash" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ImageSpash" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Page.Resources>
+    <!--
+        This grid acts as a root panel for the page that defines two rows:
+        * Row 0 contains the back button and page title
+        * Row 1 contains the rest of the page layout
+    -->
+    <Grid Background="#FFEEEEEE" Style="{StaticResource LayoutRootStyle}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <!--  Left Column  -->
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <Grid>
+                    <Button x:Name="backButton"
+                            Height="Auto"
+                            Margin="36,76,0,76"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Stretch"
+                            Click="GoBack"
+                            IsEnabled="{Binding Frame.CanGoBack,
+                                                ElementName=pageRoot}"
+                            RenderTransformOrigin="0.719,-2.583"
+                            Style="{StaticResource BackButtonStyle}" />
+                    <Image Name="ImageName"
+                           Width="200"
+                           Height="200"
+                           Margin="120,0,0,0"
+                           HorizontalAlignment="Left"
+                           Source="{Binding Path=SourceImageLogoPath}" />
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="1">
+                        <StackPanel Name="StackPanelMediaPlayer" Margin="0,20,0,0">
+                            <MediaElement x:Name="mediaplayer" AudioCategory="BackgroundCapableMedia" />
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                <Button x:Name="ButtonPlay"
+                                        Foreground="#FF996793"
+                                        Style="{StaticResource PlayAppBarButtonStyle}"
+                                        Tapped="ButtonPlay_Tapped" />
+                                <Button x:Name="ButtonStop"
+                                        Foreground="#FF996793"
+                                        Style="{StaticResource PauseAppBarButtonStyle}"
+                                        Tapped="ButtonStop_Tapped" />
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Center">
+                            <Slider Name="SliderMediaPlayerVolume"
+                                    Margin="5,0,5,0"
+                                    Style="{StaticResource SliderStyleThin}"
+                                    ValueChanged="SliderMediaPlayerVolume_ValueChanged" />
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Center">
+                            <StackPanel HorizontalAlignment="Center">
+                                <ContentControl Content="Прямой эфир:" Foreground="#FF333333" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Name="Button192kbps"
+                                        Content="(192 kbps)"
+                                        Foreground="#ff333333"
+                                        Style="{StaticResource TextButtonStyle}"
+                                        Tapped="Button192kbps_Tapped" />
+                                <ContentControl Content=" " />
+                                <Button Name="Button64kbps"
+                                        Content="(64 kbps)"
+                                        Foreground="#ff333333"
+                                        Style="{StaticResource TextButtonStyle}"
+                                        Tapped="Button64kbps_Tapped" />
+                                <ContentControl Content=" " />
+                                <Button Name="Button12kbps"
+                                        Content="(12 kbps)"
+                                        Foreground="#ff333333"
+                                        Style="{StaticResource TextButtonStyle}"
+                                        Tapped="Button12kbps_Tapped" />
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Center">
+                            <StackPanel HorizontalAlignment="Center">
+                                <ContentControl Content="Эфир 12 часов назад:" Foreground="#FF333333" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Name="ButtonBack192kbps"
+                                        Content="(192 kbps)"
+                                        Foreground="#ff333333"
+                                        Style="{StaticResource TextButtonStyle}"
+                                        Tapped="ButtonBack192kbps_Tapped" />
+                                <ContentControl Content=" " />
+                                <Button Name="ButtonBack64kbps"
+                                        Content="(64 kbps)"
+                                        Foreground="#ff333333"
+                                        Style="{StaticResource TextButtonStyle}"
+                                        Tapped="ButtonBack64kbps_Tapped" />
+                                <ContentControl Content=" " />
+                                <Button Name="ButtonBack12kbps"
+                                        Content="(12 kbps)"
+                                        Foreground="#ff333333"
+                                        Style="{StaticResource TextButtonStyle}"
+                                        Tapped="ButtonBack12kbps_Tapped" />
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Margin="0,20,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel VerticalAlignment="Center">
+                                    <ContentControl Content="Написать диджею:" Foreground="#ff333333" />
+                                </StackPanel>
+                                <Button x:Name="ButtonWriteToDj"
+                                        Foreground="#FF996793"
+                                        Style="{StaticResource WriteToDjButtonStyle}"
+                                        Tapped="ButtonWriteToDj_Tapped" />
+                            </StackPanel>
+                            <StackPanel Name="StackPanelWriteToDj"
+                                        Margin="0,0,5,0"
+                                        RenderTransformOrigin="0.5,0.5">
+                                <StackPanel.RenderTransform>
+                                    <CompositeTransform />
+                                </StackPanel.RenderTransform>
+                                <TextBox Name="TextBoxTextToDj"
+                                         MinHeight="96"
+                                         AcceptsReturn="True"
+                                         MaxLength="247"
+                                         Text="{Binding Path=TextToDj}" />
+                                <ContentControl HorizontalContentAlignment="Right"
+                                                Content="{Binding ElementName=TextBoxTextToDj,
+                                                                  Path=Text.Length}"
+                                                Foreground="#FF996793" />
+                                <Image x:Name="ImageCaptcha"
+                                       MaxHeight="70"
+                                       Source="{Binding CaptchaImage}" />
+                                <StackPanel Margin="0,10,0,0"
+                                            HorizontalAlignment="Center"
+                                            Orientation="Horizontal">
+                                    <ContentControl Name="ContentControlSendMessageErrorText"
+                                                    Content="Сообщение не отправлено."
+                                                    Foreground="#FF800000" />
+                                </StackPanel>
+                                <StackPanel Margin="0,10,0,0"
+                                            HorizontalAlignment="Center"
+                                            Orientation="Horizontal">
+                                    <TextBox Name="TextBoxCapthaText"
+                                             MaxLength="8"
+                                             Text="{Binding Path=CaptchaText}" />
+                                    <Button Name="ButtonSend"
+                                            Margin="10, 0, 0, 0"
+                                            Click="ButtonSend_Click"
+                                            Content="Отправить"
+                                            Foreground="#FF996793" />
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+
+
+
+                        <StackPanel Margin="5,20,5,0">
+                            <Grid>
+                                <Rectangle Height="25"
+                                           Fill="#FFDDDDDD"
+                                           RadiusX="5"
+                                           RadiusY="5"
+                                           Stroke="#FFCCCCCC" />
+                                <ContentControl Margin="10, 0, 0,0"
+                                                VerticalAlignment="Center"
+                                                Content="Эфир"
+                                                FontSize="13"
+                                                Foreground="#ff333333" />
+                            </Grid>
+                            <Border Margin="10,0,0,0"
+                                    BorderBrush="#ffcccccc"
+                                    BorderThickness="1,0,0,0">
+                                <StackPanel Margin="10, 5,0,5" Orientation="Horizontal">
+                                    <Button Name="ButtonRadioShedAll"
+                                            Content="Архив расписания"
+                                            FontSize="12"
+                                            Foreground="#FF996793"
+                                            Style="{StaticResource TextButtonStyle}"
+                                            Tapped="ButtonRadioShedAll_Tapped" />
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+
+
+                        <StackPanel Margin="5,20,5,0">
+                            <Grid>
+                                <Rectangle Height="25"
+                                           Fill="#FFDDDDDD"
+                                           RadiusX="5"
+                                           RadiusY="5"
+                                           Stroke="#FFCCCCCC" />
+                                <ContentControl Margin="10, 0, 0,0"
+                                                VerticalAlignment="Center"
+                                                Content="Разное"
+                                                FontSize="13"
+                                                Foreground="#ff333333" />
+                            </Grid>
+                            <Border Margin="10,0,0,0"
+                                    BorderBrush="#ffcccccc"
+                                    BorderThickness="1,0,0,0">
+                                <StackPanel Margin="10, 5,0,5" Orientation="Horizontal">
+                                    <Button Name="ButtonRadioAnon"
+                                            Content="Радио Анонимус"
+                                            FontSize="12"
+                                            Foreground="#FF996793"
+                                            Style="{StaticResource TextButtonStyle}"
+                                            Tapped="ButtonRadioAnon_Tapped" />
+                                </StackPanel>
+                            </Border>
+                            <Border Margin="10,0,0,0"
+                                    BorderBrush="#ffcccccc"
+                                    BorderThickness="1,0,0,0">
+                                <StackPanel Margin="10, 5,0,5" Orientation="Horizontal">
+                                    <Button Name="ButtonGalleryOpen"
+                                            Content="Картинки"
+                                            FontSize="12"
+                                            Foreground="#FF996793"
+                                            Style="{StaticResource TextButtonStyle}"
+                                            Tapped="ButtonGalleryOpen_Tapped" />
+                                </StackPanel>
+                            </Border>
+                            <Border Margin="10,0,0,0"
+                                    BorderBrush="#ffcccccc"
+                                    BorderThickness="1,0,0,0">
+                                <StackPanel Margin="10, 5,0,5" Orientation="Horizontal">
+                                    <Button Name="ButtonRadioAnonData"
+                                            Content="Пастохранилище"
+                                            FontSize="12"
+                                            Foreground="#FF996793"
+                                            Style="{StaticResource TextButtonStyle}"
+                                            Tapped="ButtonRadioAnonData_Tapped" />
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+
+
+                        <StackPanel Margin="5,20,5,0">
+                            <Grid>
+                                <Rectangle Height="25"
+                                           Fill="#FFDDDDDD"
+                                           RadiusX="5"
+                                           RadiusY="5"
+                                           Stroke="#FFCCCCCC" />
+                                <ContentControl Margin="10, 0, 0,0"
+                                                VerticalAlignment="Center"
+                                                Content="Обратная Связь"
+                                                FontSize="13"
+                                                Foreground="#ff333333" />
+                            </Grid>
+                            <Border Margin="10,0,0,0"
+                                    BorderBrush="#ffcccccc"
+                                    BorderThickness="1,0,0,0">
+                                <StackPanel Margin="10, 5,0,5" Orientation="Horizontal">
+                                    <Button Name="ButtonRadioTextSab"
+                                            Content="Текстаба"
+                                            FontSize="12"
+                                            Foreground="#FF996793"
+                                            Style="{StaticResource TextButtonStyle}"
+                                            Tapped="ButtonRadioTextSab_Tapped" />
+                                </StackPanel>
+                            </Border>
+                            <Border Margin="10,0,0,0"
+                                    BorderBrush="#ffcccccc"
+                                    BorderThickness="1,0,0,0">
+                                <StackPanel Margin="10, 5,0,5" Orientation="Horizontal">
+                                    <Button Name="ButtonRadioChat"
+                                            Content="Чат"
+                                            FontSize="12"
+                                            Foreground="#FF996793"
+                                            Style="{StaticResource TextButtonStyle}"
+                                            Tapped="ButtonRadioChat_Tapped" />
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+
+
+                        <StackPanel Margin="5,20,5,0">
+                            <Grid>
+                                <Rectangle Height="25"
+                                           Fill="#FFDDDDDD"
+                                           RadiusX="5"
+                                           RadiusY="5"
+                                           Stroke="#FFCCCCCC" />
+                                <ContentControl Margin="10, 0, 0,0"
+                                                VerticalAlignment="Center"
+                                                Content="Помощь"
+                                                FontSize="13"
+                                                Foreground="#ff333333" />
+                            </Grid>
+                            <Border Margin="10,0,0,0"
+                                    BorderBrush="#ffcccccc"
+                                    BorderThickness="1,0,0,0">
+                                <StackPanel Margin="10, 5,0,5" Orientation="Horizontal">
+                                    <Button Name="ButtonAboutApp"
+                                            Content="О приложении"
+                                            FontSize="12"
+                                            Foreground="#FF996793"
+                                            Style="{StaticResource TextButtonStyle}"
+                                            Tapped="ButtonAboutApp_Tapped" />
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+        <!--  Center Column  -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid>
+                <StackPanel Margin="50,20,40,0" Orientation="Horizontal">
+                    <ContentControl Name="ContentControlLog"
+                                    Content="{Binding Path=Massage}"
+                                    FontSize="12"
+                                    Foreground="#cc0000" />
+                </StackPanel>
+                <StackPanel Name="StackPanelTime"
+                            Margin="0,20,40,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Orientation="Horizontal">
+                    <ContentControl x:Name="ContentControlTimeLable"
+                                    Content="{Binding Path=TimeLable}"
+                                    Foreground="#FF333333" />
+                    <ContentControl x:Name="ContentControlTime"
+                                    Content="{Binding Path=Time}"
+                                    Foreground="#FF333333" />
+                </StackPanel>
+            </Grid>
+            <ScrollViewer Grid.Row="1"
+                          HorizontalScrollBarVisibility="Auto"
+                          Style="{StaticResource HorizontalScrollViewerStyle}"
+                          VerticalScrollBarVisibility="Disabled"
+                          ViewChanged="ScrollViewer_ViewChanged">
+                <Grid Margin="0,0,0,120">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Name="GridRadioStatus" Margin="20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="640" />
+                        </Grid.ColumnDefinitions>
+                        <Image Name="ImageSpash"
+                               MaxWidth="640"
+                               Margin="50, 135, 0,0"
+                               ImageOpened="ImageSpash_ImageOpened"
+                               RenderTransformOrigin="0.5,0.5"
+                               Source="{Binding Path=SourceImageSplashPath}"
+                               Stretch="Uniform"
+                               Tapped="ImageSpash_Tapped">
+                            <Image.RenderTransform>
+                                <CompositeTransform />
+                            </Image.RenderTransform>
+                        </Image>
+                        <StackPanel Name="StackPanelRadioStreamDescription"
+                                    Grid.Row="1"
+                                    Margin="0,20,0,0"
+                                    HorizontalAlignment="Center"
+                                    Orientation="Horizontal">
+                            <Image Source="images/anon.fm/icons/radioanon.png" Stretch="None" />
+                            <StackPanel Margin="10,0,10,0" VerticalAlignment="Center">
+                                <ContentControl Name="ContentControlCurrentSong"
+                                                Content="{Binding Path=RadioStreamDescriptionCurrentSong}"
+                                                Foreground="#FF996793" />
+                                <StackPanel Orientation="Horizontal">
+                                    <ContentControl Name="ContentControlStreamDescription"
+                                                    Content="{Binding Path=RadioStreamDescriptionStreamDescription}"
+                                                    FontSize="14.667"
+                                                    Foreground="#FF996793" />
+                                    <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
+                                        <ContentControl Name="ContentControlListeners"
+                                                        Content="{Binding Path=RadioStreamDescriptionListeners}"
+                                                        FontSize="10"
+                                                        Foreground="#FF996793" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Name="GridPanelAnswers"
+                          Grid.Column="1"
+                          Margin="50, 100, 0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ContentControl Content="Кукареканье со стороны диджейки:"
+                                        FontSize="24"
+                                        Foreground="#FF996793" />
+                        <ScrollViewer Grid.Row="1"
+                                      Margin="20, 20, 0, 0"
+                                      HorizontalScrollBarVisibility="Disabled"
+                                      VerticalScrollBarVisibility="Auto">
+                            <ListView Name="ListViewAnswers"
+                                      Width="800"
+                                      IsSwipeEnabled="True"
+                                      ItemTemplateSelector="{StaticResource AnswerTemplateSelector}"
+                                      ItemsSource="{Binding Path=AnswerModels}"
+                                      SelectionMode="None">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <!--  <Setter Property="Padding" Value="20,15,20,15" />  -->
+                                        <Setter Property="Margin" Value="0,0,20,5" />
+                                        <!--
+                                            <Setter Property="BorderBrush" Value="#aaa" />
+                                            <Setter Property="BorderThickness" Value="1" />
+                                        -->
+                                        <!--
+                                            <Setter Property="Background">
+                                            <Setter.Value>
+                                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                            <GradientStop Color="#FFf3f3f3" />
+                                            </LinearGradientBrush>
+                                            </Setter.Value>
+                                            </Setter>
+                                        -->
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                            </ListView>
+                        </ScrollViewer>
+                    </Grid>
+                    <Grid x:Name="GridWebBrowser"
+                          Grid.Column="2"
+                          Margin="20, 160, 0, 0"
+                          RenderTransformOrigin="0.5,0.5">
+                        <Grid.RenderTransform>
+                            <CompositeTransform />
+                        </Grid.RenderTransform>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <ComboBox x:Name="ComboBoxUrls"
+                                  Width="1200"
+                                  Height="50"
+                                  Margin="10,0,0,0"
+                                  HorizontalAlignment="Left"
+                                  SelectionChanged="ComboBoxUrls_SelectionChanged" />
+                        <Border Grid.Row="1"
+                                Margin="10,10,0,0"
+                                BorderBrush="#BBB"
+                                BorderThickness="1">
+                            <Grid>
+                                <WebView x:Name="WebViewAnswers" />
+                                <Rectangle x:Name="RectangleWebViewAnswers" Width="1200" />
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Column="3" Margin="50, 100, 120,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ContentControl Content="Расписание:"
+                                        FontSize="24"
+                                        Foreground="#FF996793" />
+                        <ScrollViewer Grid.Row="1"
+                                      Margin="20, 20, 0, 0"
+                                      HorizontalScrollBarVisibility="Disabled"
+                                      VerticalScrollBarVisibility="Auto">
+                            <ListView Name="ListViewShed"
+                                      Width="800"
+                                      IsSwipeEnabled="True"
+                                      ItemTemplate="{StaticResource ShedTemplate}"
+                                      ItemsSource="{Binding Path=ShedModels}"
+                                      SelectionMode="None">
+
+                                <!--
+                                    <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                    <Setter Property="MinHeight" Value="30" />
+                                    </Style>
+                                    </ListView.ItemContainerStyle>
+                                -->
+
+                            </ListView>
+                        </ScrollViewer>
+                    </Grid>
+                    <Grid Grid.Column="4" Margin="50, 100, 120,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ContentControl Content="Творчество радиослушателей:"
+                                        FontSize="24"
+                                        Foreground="#FF996793" />
+                        <GridView Name="GridViewGallery"
+                                  Grid.Row="1"
+                                  ItemContainerStyle="{StaticResource GridViewItemClearSelectStyle}"
+                                  ItemTemplate="{StaticResource GridViewGalleryTemplate}"
+                                  ItemsSource="{Binding Path=Images}"
+                                  SelectionMode="Single" />
+
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+        <VisualStateManager.VisualStateGroups>
+            <!--  Visual states reflect the application's view state  -->
+            <VisualStateGroup x:Name="ApplicationViewStates">
+                <VisualState x:Name="FullScreenLandscape" />
+                <VisualState x:Name="Filled" />
+                <!--  The entire page respects the narrower 100-pixel margin convention for portrait  -->
+                <VisualState x:Name="FullScreenPortrait">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PortraitBackButtonStyle}" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <!--  The back button and title have different styles when snapped  -->
+                <VisualState x:Name="Snapped">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedBackButtonStyle}" />
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Style">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</common:LayoutAwarePage>

@@ -1,0 +1,313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4B21F07B-EBB6-4DC7-84F0-0A4F7333B08B}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RadioAnonymous</RootNamespace>
+    <AssemblyName>RadioAnonymous</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PackageCertificateKeyFile>RadioAnonymous_StoreKey.pfx</PackageCertificateKeyFile>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <PackageCertificateThumbprint>6A25BE5F0B1A22B4287609D81F29ABA1872033DD</PackageCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AppBlocks\Console\Console.cs" />
+    <Compile Include="AppBlocks\Console\IConsole.cs" />
+    <Compile Include="Common\BindableBase.cs" />
+    <Compile Include="Common\BooleanNegationConverter.cs" />
+    <Compile Include="Common\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Common\LayoutAwarePage.cs" />
+    <Compile Include="Common\RichTextColumns.cs" />
+    <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="Helpers\ControlHelpers\AnswerTemplateSelector.cs" />
+    <Compile Include="Helpers\ControlHelpers\NavigationService.cs" />
+    <Compile Include="Helpers\ControlHelpers\WebViewHelper.cs" />
+    <Compile Include="Helpers\Extentions\HttpWebRequestExtention.cs" />
+    <Compile Include="Helpers\Extentions\ObservableCollectionExtention.cs" />
+    <Compile Include="Helpers\Extentions\StringExtention.cs" />
+    <Compile Include="Helpers\FileHandler.cs" />
+    <Compile Include="Helpers\HashsetObservableCollection.cs" />
+    <Compile Include="Helpers\InternetHandler.cs" />
+    <Compile Include="Helpers\XmlHandler.cs" />
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AnswerModel.cs" />
+    <Compile Include="Models\GalleryImageModel.cs" />
+    <Compile Include="Models\MountModel.cs" />
+    <Compile Include="Models\RadioStatusModel.cs" />
+    <Compile Include="Models\ShedModel.cs" />
+    <Compile Include="Models\WriteToDjModel.cs" />
+    <Compile Include="Pages\Chat.xaml.cs">
+      <DependentUpon>Chat.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AboutAppPage.xaml.cs">
+      <DependentUpon>AboutAppPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ShedAll.xaml.cs">
+      <DependentUpon>ShedAll.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RadioDataPage.xaml.cs">
+      <DependentUpon>RadioDataPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RadioAboutPage.xaml.cs">
+      <DependentUpon>RadioAboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\GalleryPage.xaml.cs">
+      <DependentUpon>GalleryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AnswerViewModel.cs" />
+    <Compile Include="ViewModels\BanerViewModel.cs" />
+    <Compile Include="ViewModels\ConsoleViewModel.cs" />
+    <Compile Include="ViewModels\GalleryViewModel.cs" />
+    <Compile Include="ViewModels\LogViewModel.cs" />
+    <Compile Include="ViewModels\RadioStatusViewModel.cs" />
+    <Compile Include="ViewModels\ShedViewModel.cs" />
+    <Compile Include="ViewModels\TimeViewModel.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\WriteToDjViewModel.cs" />
+    <Compile Include="Views\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+    <None Include="packages.config" />
+    <None Include="RadioAnonymous_StoreKey.pfx" />
+    <None Include="RadioAnonymous_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Logo.scale-180.png" />
+    <Content Include="Assets\SmallLogo.scale-180.png" />
+    <Content Include="Assets\SmallLogo.scale-54.png" />
+    <Content Include="Assets\SmallLogo.targetsize-256.png" />
+    <Content Include="Assets\SplashScreen.scale-180.png" />
+    <Content Include="Assets\StoreLogo.scale-180.png" />
+    <Content Include="Assets\WideLogo.scale-180.png" />
+    <Content Include="Common\ReadMe.txt" />
+    <Content Include="images\anon.fm\gallery\0.jpg" />
+    <Content Include="images\anon.fm\gallery\11.jpg" />
+    <Content Include="images\anon.fm\gallery\13570547896563.jpg" />
+    <Content Include="images\anon.fm\gallery\13570589974702.png" />
+    <Content Include="images\anon.fm\gallery\13573263766023.jpg" />
+    <Content Include="images\anon.fm\gallery\19.jpg" />
+    <Content Include="images\anon.fm\gallery\1xkyN7Y9kJg.jpg" />
+    <Content Include="images\anon.fm\gallery\20.jpg" />
+    <Content Include="images\anon.fm\gallery\23.jpg" />
+    <Content Include="images\anon.fm\gallery\24.jpg" />
+    <Content Include="images\anon.fm\gallery\25.jpg" />
+    <Content Include="images\anon.fm\gallery\27.jpg" />
+    <Content Include="images\anon.fm\gallery\28.jpg" />
+    <Content Include="images\anon.fm\gallery\35.jpg" />
+    <Content Include="images\anon.fm\gallery\36.jpg" />
+    <Content Include="images\anon.fm\gallery\37.jpg" />
+    <Content Include="images\anon.fm\gallery\42.jpg" />
+    <Content Include="images\anon.fm\gallery\43.jpg" />
+    <Content Include="images\anon.fm\gallery\46.jpg" />
+    <Content Include="images\anon.fm\gallery\502R7-6DQXY.jpg" />
+    <Content Include="images\anon.fm\gallery\51.jpg" />
+    <Content Include="images\anon.fm\gallery\53.jpg" />
+    <Content Include="images\anon.fm\gallery\58.jpg" />
+    <Content Include="images\anon.fm\gallery\62.jpg" />
+    <Content Include="images\anon.fm\gallery\65.jpg" />
+    <Content Include="images\anon.fm\gallery\7.jpg" />
+    <Content Include="images\anon.fm\gallery\73.jpg" />
+    <Content Include="images\anon.fm\gallery\77.jpg" />
+    <Content Include="images\anon.fm\gallery\78.jpg" />
+    <Content Include="images\anon.fm\gallery\7GzsIrL_NGs.jpg" />
+    <Content Include="images\anon.fm\gallery\80.jpg" />
+    <Content Include="images\anon.fm\gallery\81.jpg" />
+    <Content Include="images\anon.fm\gallery\84.jpg" />
+    <Content Include="images\anon.fm\gallery\85.jpg" />
+    <Content Include="images\anon.fm\gallery\9L5Xod9CToQ.jpg" />
+    <Content Include="images\anon.fm\gallery\Abandoned_House.jpg" />
+    <Content Include="images\anon.fm\gallery\BY-Xe2tPaGY.jpg" />
+    <Content Include="images\anon.fm\gallery\ctko_OFqz4Q.jpg" />
+    <Content Include="images\anon.fm\gallery\FgzwgPR5d0c.jpg" />
+    <Content Include="images\anon.fm\gallery\npzFZ-H66IE.jpg" />
+    <Content Include="images\anon.fm\gallery\RXXlilMdie8.jpg" />
+    <Content Include="images\anon.fm\gallery\sl2Q0onAKb8.jpg" />
+    <Content Include="images\anon.fm\gallery\xjftuxg3hmg.jpg" />
+    <Content Include="images\anon.fm\gallery\XpJM9BSk3Nc.jpg" />
+    <Content Include="images\anon.fm\gallery\x_o44lb47l8.jpg" />
+    <Content Include="images\anon.fm\gallery\y_f8b26690.jpg" />
+    <Content Include="images\anon.fm\icons\note.png" />
+    <Content Include="images\anon.fm\icons\radioanon.png" />
+    <Content Include="images\anon.fm\images\Anonimuchaev.jpg" />
+    <Content Include="images\anon.fm\logos\0.png" />
+    <Content Include="images\anon.fm\logos\1.png" />
+    <Content Include="images\anon.fm\logos\2.png" />
+    <Content Include="images\anon.fm\logos\3.png" />
+    <Content Include="images\anon.fm\logos\4.png" />
+    <Content Include="images\anon.fm\logos\5.png" />
+    <Content Include="images\anon.fm\logo\radio.jpg" />
+    <Content Include="images\anon.fm\splash\1.png" />
+    <Content Include="images\anon.fm\splash\29.jpg" />
+    <Content Include="images\anon.fm\splash\bratishka.jpg" />
+    <Content Include="images\anon.fm\splash\car20.jpg" />
+    <Content Include="images\anon.fm\splash\changeSplash%28%29.jpg" />
+    <Content Include="images\anon.fm\splash\dostav.jpg" />
+    <Content Include="images\anon.fm\splash\geomap.jpg" />
+    <Content Include="images\anon.fm\splash\lenin.jpg" />
+    <Content Include="images\anon.fm\splash\man_chair.jpg" />
+    <Content Include="images\anon.fm\splash\paper.jpg" />
+    <Content Include="images\anon.fm\splash\paty.jpg" />
+    <Content Include="images\anon.fm\splash\people.jpg" />
+    <Content Include="images\anon.fm\splash\prof.jpg" />
+    <Content Include="images\anon.fm\splash\radio.jpg" />
+    <Content Include="images\anon.fm\splash\radiopony.jpg" />
+    <Content Include="images\anon.fm\splash\vnuchaev-fire.jpg" />
+    <None Include="Package.StoreAssociation.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="Common\StandardStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Chat.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\AboutAppPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\ShedAll.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\RadioDataPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\RadioAboutPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\GalleryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AboutPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
+    <VisualStudioVersion>11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
